@@ -6,7 +6,7 @@ const screenWidth = Dimensions.get('window').width;
 export default function Groups(){
   return(
     <LinearGradient
-      colors={['#4c669f', '#3b5998', '#192f6a']}
+      colors={['#4A4947', '#000000', '#000000']}
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
@@ -114,16 +114,23 @@ const styles = StyleSheet.create({
   },
   buscar: {
     textAlign: 'center',
-    backgroundColor: '#3b5998',
+    backgroundColor: 'white',
     marginLeft: 10,
     marginRight: 10,
-    borderRadius: 5
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#192f6a',
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
   },
   imageG: {
     width: screenWidth * 0.35,
     height: 200,
-    margin: 5,
-    borderRadius: 5
+    margin: 10,
+    borderRadius: 10
   },
   descG: {
     width: screenWidth * 0.55,
@@ -133,11 +140,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#192f6a',
+    backgroundColor: 'black',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'grey',
-    elevation: 18,
+    borderColor: '#192f6a',
+    elevation: 9,
     shadowColor: 'white',
     shadowOffset: { width: 3, height: 4 },
     shadowOpacity: 0.25,

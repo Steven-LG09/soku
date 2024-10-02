@@ -29,7 +29,7 @@ export default function Post(){
   };*/
   return(
     <LinearGradient
-      colors={['#4c669f', '#3b5998', '#192f6a']}
+      colors={['#4A4947', '#000000', '#000000']}
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>

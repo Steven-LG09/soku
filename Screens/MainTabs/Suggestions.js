@@ -7,7 +7,7 @@ const screenWidth = Dimensions.get('window').width;
 export default function Suggestions(){
   return(
     <LinearGradient
-      colors={['#4c669f', '#3b5998', '#192f6a']}
+      colors={['#4A4947', '#000000', '#000000']}
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
@@ -123,10 +123,17 @@ const styles = StyleSheet.create({
   },
   buscar: {
     textAlign: 'center',
-    backgroundColor: '#3b5998',
+    backgroundColor: 'white',
     marginLeft: 10,
     marginRight: 10,
-    borderRadius: 5
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#192f6a',
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
   },
   app: {
     margin: 10,
@@ -141,10 +148,14 @@ const styles = StyleSheet.create({
   textB: {
     marginTop: 5,
     textAlign: 'left',
-    backgroundColor: '#3b5998',
+    color: 'white',
+    backgroundColor: 'black',
     borderRadius: 5,
     height: 'auto',
-    fontFamily: 'serif'
+    fontFamily: 'serif',
+    borderWidth: 0.5,
+    borderColor: '#192f6a',
+    padding: 2
   },
   rowB: {
     width: screenWidth * 0.313

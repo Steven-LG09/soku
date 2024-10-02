@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function Feed(){
   return(
     <LinearGradient
-      colors={['#4c669f', '#3b5998', '#192f6a']}
+      colors={['#4A4947', '#000000', '#000000']}
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
@@ -97,13 +97,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#3b5998',
-    shadowColor: '#192f6a',
+    backgroundColor: 'black',
+    shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 9,
-    height: 70
+    height: 70,
+    borderWidth: 1,
+    borderColor: '#192f6a'
   },
   name: {
     textAlign: 'center',
@@ -116,30 +118,38 @@ const styles = StyleSheet.create({
   },
   imageChat: {
     width: 50,
-    height: 50
+    height: 50,
+    marginLeft: 5,
+    marginRight: 5,
   },
   imageFeed: {
     width: 'auto',
     height: 300,
-    borderColor: '#3b5998',
-    borderWidth: 1,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     elevation: 9
   },
   feed: {
-    padding: 20,
+    margin: 20,
     justifyContent: 'center',
     alignContent: 'center',
+    elevation: 9,
+    borderWidth: 2,
+    borderColor: '#192f6a',
+    borderRadius: 15,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   interFeed: {
     height: 70,
-    backgroundColor: '#3b5998',
+    backgroundColor: 'black',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
     padding: 5
   },
   profileFeed: {
@@ -147,7 +157,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: '#4c669f'
+    borderColor: '#192f6a'
   },
   profileInter: {
     width: 40,
@@ -156,7 +166,8 @@ const styles = StyleSheet.create({
   },
   textFeed: {
     fontFamily: 'serif',
-    backgroundColor: '#3b5998',
-    padding: 3
+    backgroundColor: 'black',
+    padding: 3,
+    color: 'white'
   }
 });

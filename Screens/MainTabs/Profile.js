@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function Profile(){
   return(
     <LinearGradient
-      colors={['#4c669f', '#3b5998', '#192f6a']}
+      colors={['#4A4947', '#000000', '#000000']}
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
@@ -31,7 +31,7 @@ export default function Profile(){
           <Text style={styles.buttonsP}>Saves</Text>
         </View>
         <View style={styles.postsF}>
-          <Text>No Posts </Text>
+          <Text style={styles.textpos}>No Posts </Text>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -50,14 +50,24 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    elevation: 18,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
   },
   secOne: {
-    backgroundColor: '#3b5998',
+    backgroundColor: 'black',
     padding: 5,
     margin: 5,
     borderRadius: 5,
-    elevation: 18,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
+    borderWidth: 1,
+    borderColor: '#192f6a',
   },
   secIma: {
     alignItems: 'center',
@@ -71,33 +81,41 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     fontFamily: 'serif',
-    fontSize: 10
+    fontSize: 10,
+    color: 'white'
   },
   textSecDos: {
     textAlign: 'left',
     marginBottom: 5,
     fontFamily: 'serif',
     fontSize: 13,
-    color: '#192f6a'
+    color: 'white'
   },
   secTres: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: 10,
-    backgroundColor: '#3b5998',
+    backgroundColor: 'black',
     height: 50,
-    elevation: 18
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
+    borderWidth: 1,
+    borderColor: '#192f6a',
   },
   buttonsP: {
-    fontSize: 15
-
+    fontSize: 15,
+    color: 'white'
   },
   buttonsPi: {
     fontSize: 15,
-    backgroundColor: '#4c669f',
+    backgroundColor: '#192f6a',
     borderRadius: 5,
-    elevation: 9
+    elevation: 9,
+    color: 'white'
   },
   postsF: {
     flex: 1,
@@ -107,8 +125,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 5,
     borderWidth: 1,
-    borderColor: '#3b5998',
+    borderColor: '#192f6a',
     borderRadius: 5,
-    elevation: 2
+    elevation: 2,
+  },
+  textpos: {
+    color: 'white',
+    fontFamily: 'serif'
   }
 });
