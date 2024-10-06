@@ -1,60 +1,25 @@
+import React, { useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image } from 'react-native';
-import Profile from './Screens/MainTabs/Profile'
-import Feed from './Screens/MainTabs/Feed';
-import Suggestions from './Screens/MainTabs/Suggestions'
-import Groups from './Screens/MainTabs/Groups'
-import Post from './Screens/MainTabs/Post'
+import { createStackNavigator } from '@react-navigation/stack';
+import { AuthContext } from './Context/auth-context';
+import AuthContextProvider from './Context/auth-context';
+import WelcomeScreen from './Screens/WelcomeScreen';
+import MainTabs from './Navigation/MainTabs';
 
 
-const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
 export default function App() {
+  const authCtx = useContext(AuthContext);
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator 
-      initialRouteName='Feed'
-      screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, size }) => {
-            let iconPath;
-  
-            if (route.name === 'Profile') {
-              iconPath = focused
-                ? require('../soku/assets/profile.png')
-                : require('../soku/assets/profile-no.png');
-            } else if (route.name === 'Groups') {
-              iconPath = focused
-                ? require('../soku/assets/group.png')
-                : require('../soku/assets/group-no.png');
-            } else if (route.name === 'Suggestions') {
-              iconPath = focused
-                ? require('../soku/assets/loupe.png')
-                : require('../soku/assets/loupe-no.png');
-            } else if (route.name === 'Post') {
-              iconPath = focused
-                ? require('../soku/assets/post.png')
-                : require('../soku/assets/post-no.png');
-            } else if (route.name === 'Feed') {
-              iconPath = focused
-                ? require('../soku/assets/home.png')
-                : require('../soku/assets/home-no.png');
-            } 
-  
-            return <Image source={iconPath} style={{ width: size, height: size}} />;
-          },
-          tabBarStyle: {
-              paddingHorizontal: 20,
-              height: 60,
-              backgroundColor: '#192f6a'
-          }
-        })}>
-        <Tab.Screen name='Profile' component={Profile} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-        <Tab.Screen name='Groups' component={Groups} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-        <Tab.Screen name='Suggestions' component={Suggestions} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-        <Tab.Screen name='Post' component={Post} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-        <Tab.Screen name='Feed' component={Feed} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-      </Tab.Navigator>
-    </NavigationContainer>
+    <AuthContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={authCtx.isLoggedIn ? "MainTabs" : "Welcome"}>
+          <Stack.Screen name='Welcome' component={WelcomeScreen} options={{headerShown: false}}/>
+          <Stack.Screen name='MainTabs' component={MainTabs} options={{headerShown: false}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthContextProvider>
   );
 }
