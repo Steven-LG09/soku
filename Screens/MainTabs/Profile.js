@@ -1,8 +1,8 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,Button} from "react-native";
+import{SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-export default function Profile(){
+export default function Profile({navigation}){
   return(
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
@@ -25,6 +25,17 @@ export default function Profile(){
             | Aventurero 🌍 | Amante del café ☕ y de los buenos momentos 
             | Creciendo cada día, una meta a la vez 🚀 | Aquí para inspirar y compartir mi viaje.</Text>
         </View>
+        <View style={styles.buttonsSec}>
+          <TouchableOpacity 
+          style={styles.buttonOp}
+          onPress={()=>navigation.navigate('ProfileOptions')}
+          >
+            <Image
+            style={styles.imageOp}
+            source={require('../../assets/settings.png')}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.secTres}>
           <Text style={styles.buttonsPi}>Posts</Text>
           <Text style={styles.buttonsP}>Posts 2</Text>
@@ -46,6 +57,18 @@ const styles = StyleSheet.create({
   gradient: {
     flex: 1, 
   },
+  imageOp:{
+    width: 30,
+    height: 30
+  },
+  buttonOp: {
+    width: 30,
+    height: 30,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 2,
+  },
   imagePro: {
     width: 100,
     height: 100,
@@ -56,10 +79,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 9,
   },
+  buttonsSec:{
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    margin: 2
+  },
   secOne: {
     backgroundColor: 'black',
     padding: 5,
-    margin: 5,
+    margin: 2,
     borderRadius: 5,
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
@@ -95,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 2,
     backgroundColor: 'black',
     height: 50,
     shadowColor: 'white',
