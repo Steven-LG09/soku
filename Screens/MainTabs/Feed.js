@@ -1,8 +1,8 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,ScrollView} from "react-native";
+import{SafeAreaView,StyleSheet,Text,View,Image,ScrollView,TouchableOpacity} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-export default function Feed(){
+export default function Feed({navigation}){
   return(
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
@@ -10,15 +10,25 @@ export default function Feed(){
       >
       <SafeAreaView style={styles.container}>
         <View style={styles.appHeader}>
+          <TouchableOpacity
+          style={styles.buttonsHe}
+          onPress={()=>navigation.navigate('Feed2')}
+          >
             <Image
             style={styles.imageChat}
             source={require('../MainTabs/images/screen.png')}
             />
+          </TouchableOpacity>
             <Text style={styles.name}>Soku</Text>
+          <TouchableOpacity
+          style={styles.buttonsHe}
+          onPress={()=>navigation.navigate('Chats')}
+          >
             <Image
             style={styles.imageChat}
             source={require('../MainTabs/images/chat.png')}
             />
+          </TouchableOpacity>
         </View>
         <ScrollView>
             <View style={styles.feed}>
@@ -106,6 +116,14 @@ const styles = StyleSheet.create({
     height: 70,
     borderWidth: 1,
     borderColor: '#192f6a'
+  },
+  buttonsHe: {
+    width: 50,
+    height: 50,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 2,
   },
   name: {
     textAlign: 'center',
