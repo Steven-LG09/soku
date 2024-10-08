@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiKey = 'hola'; 
+const apiKey = 'AIzaSyDM9bw3B9Ohjze9QjtMoNpTb_W4JIWhrs4'; 
 
 async function authenticate(mode, email, password) {
 

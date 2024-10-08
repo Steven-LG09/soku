@@ -1,15 +1,27 @@
 import { SafeAreaView, TouchableOpacity, StyleSheet,Text } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
+import React, {useContext} from "react";
+import { AuthContext } from "../../Context/auth-context";
 
 
-export default function ProfileOptions (){
+export default function ProfileOptions ({navigation}){
+    const authCtx = useContext(AuthContext); 
+
+    const handleLogout = async () => {
+        await authCtx.logout();
+        navigation.navigate('Welcome');
+      };
     return(
         <LinearGradient
         colors={['#4A4947', '#000000', '#000000']}
         style={styles.gradient} 
         >
             <SafeAreaView style={styles.container}>
-                <TouchableOpacity style={styles.buttons}>
+                <Text style={styles.texto}>hola {email},{password}</Text>
+                <TouchableOpacity 
+                style={styles.buttons}
+                onPress={handleLogout}
+                >
                     <Text style={styles.buttonsT}>Logout</Text>
                 </TouchableOpacity>
             </SafeAreaView>
@@ -21,6 +33,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+    },
+    texto:{
+        color: 'white'
     },
     gradient: {
         flex: 1, 
@@ -44,5 +59,5 @@ const styles = StyleSheet.create({
     },
     buttonsT: {
         color: 'white'
-    }
+    },
 });

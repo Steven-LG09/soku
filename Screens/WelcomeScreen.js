@@ -19,7 +19,7 @@ const WelcomeScreen = ({ navigation }) => {
     try {
       const token = await login(email, password); 
 
-      authCtx.login(token); 
+      authCtx.login(token);
 
       navigation.navigate('MainTabs'); 
     } catch (error) {
