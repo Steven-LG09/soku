@@ -3,14 +3,19 @@ import { Text, TextInput, StyleSheet, Pressable, Platform, Alert, SafeAreaView} 
 import { login } from '../Utils/Auth';
 import { AuthContext } from '../Context/auth-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { MainContext } from '../Context/context';
 
 
 const WelcomeScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const authCtx = useContext(AuthContext); 
+  const {setInputEmail} =useContext(MainContext);
+  const {setInputPass} =useContext(MainContext);
 
   async function handleLogin() {
+    setInputEmail(email);
+    setInputPass(password);
     if (!email || !password) {
       Alert.alert('Error', 'Please enter both email and password', [{ text: 'OK' }]);
       return;
@@ -18,7 +23,6 @@ const WelcomeScreen = ({ navigation }) => {
 
     try {
       const token = await login(email, password); 
-
       authCtx.login(token);
 
       navigation.navigate('MainTabs'); 

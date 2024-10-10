@@ -1,10 +1,13 @@
-import { SafeAreaView, TouchableOpacity, StyleSheet,Text } from "react-native";
+import { SafeAreaView, TouchableOpacity, StyleSheet,Text, View } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {useContext} from "react";
 import { AuthContext } from "../../Context/auth-context";
+import { MainContext } from "../../Context/context";
 
 
 export default function ProfileOptions ({navigation}){
+    const {inputEmail} =useContext(MainContext);
+    const {inputPass} =useContext(MainContext);
     const authCtx = useContext(AuthContext); 
 
     const handleLogout = async () => {
@@ -17,7 +20,11 @@ export default function ProfileOptions ({navigation}){
         style={styles.gradient} 
         >
             <SafeAreaView style={styles.container}>
-                <Text style={styles.texto}>hola {email},{password}</Text>
+                <View style={styles.proInfo}>
+                    <Text style={styles.texto1}>Profile information</Text>
+                    <Text style={styles.texto}>Email: {inputEmail}</Text>
+                    <Text style={styles.texto}>Password: {inputPass}</Text>
+                </View>
                 <TouchableOpacity 
                 style={styles.buttons}
                 onPress={handleLogout}
@@ -32,13 +39,22 @@ export default function ProfileOptions ({navigation}){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
     },
     texto:{
-        color: 'white'
+        color: 'white',
+        fontFamily: 'serif'
+    },
+    texto1:{
+        color: 'white',
+        fontFamily: 'serif',
+        fontStyle: 'italic',
+        fontSize: 20
     },
     gradient: {
         flex: 1, 
+    },
+    proInfo: {
+        margin: 30
     },
     buttons: {
         justifyContent: 'center',
@@ -57,6 +73,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 18,
     },
+
     buttonsT: {
         color: 'white'
     },

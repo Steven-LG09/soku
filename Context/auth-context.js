@@ -7,6 +7,7 @@ export const AuthContext = createContext({
   logout: () => {},
 }); 
 export default function AuthContextProvider({ children }){
+
   const [authToken, setAuthToken] = useState(); 
 
   async function login(token){
