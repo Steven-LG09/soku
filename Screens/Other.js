@@ -1,11 +1,9 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,ScrollView,TouchableOpacity,Button,FlatList} from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet,Image } from 'react-native';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from "../../Firebase/FirebaseConfig";
+import { db } from '../Firebase/FirebaseConfig';
 
-
-export default function Feed({navigation}){
+export default function Other() {
   const [Feed1, setFeed1] = useState([]);
 
   const fetchFeed1 = async () => {
@@ -25,72 +23,46 @@ export default function Feed({navigation}){
     fetchFeed1();
   }, []);
 
-  return(
-    <LinearGradient
-      colors={['#4A4947', '#000000', '#000000']}
-      style={styles.gradient} 
-      >
-      <SafeAreaView style={styles.container}>
-        <View style={styles.appHeader}>
-          <TouchableOpacity
-          style={styles.buttonsHe}
-          onPress={()=>navigation.navigate('Feed2')}
-          >
-            <Image
-            style={styles.imageChat}
-            source={require('../MainTabs/images/screen.png')}
-            />
-          </TouchableOpacity>
-            <Text style={styles.name}>Soku</Text>
-          <TouchableOpacity
-          style={styles.buttonsHe}
-          onPress={()=>navigation.navigate('Chats')}
-          >
-            <Image
-            style={styles.imageChat}
-            source={require('../MainTabs/images/chat.png')}
-            />
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={Feed1}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.feed}>
-              {item.MainImage ? (
-                <Image 
-                style={styles.imageFeed}
-                source={{uri: item.MainImage}}
-                />
-              ) : (
-                <Text>No image available</Text>
-              )}
-              <Text style={styles.textFeed}>
-                  <Text style={{fontWeight: 'bold'}}>{item.name}</Text> {item.description}
-              </Text>
-              <View style={styles.interFeed}>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/coment.png')}/>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/heart.png')}/>
-              {item.ProImage ? (
-                <Image 
-                style={styles.profileFeed}
-                source={{uri: item.ProImage}}
-                />
-              ) : (
-                <Text>No image available</Text>
-              )}
-              </View>
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={Feed1}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.feed}>
+            {item.MainImage ? (
+              <Image 
+              style={styles.imageFeed}
+              source={{uri: item.MainImage}}
+              />
+            ) : (
+              <Text>No image available</Text>
+            )}
+            <Text style={styles.textFeed}>
+                <Text style={{fontWeight: 'bold'}}>{item.name}</Text> {item.description}
+            </Text>
+            <View style={styles.interFeed}>
+                <Image
+                style={styles.profileInter}
+                source={require('./MainTabs/images/coment.png')}/>
+                <Image
+                style={styles.profileInter}
+                source={require('./MainTabs/images/heart.png')}/>
+            {item.ProImage ? (
+              <Image 
+              style={styles.profileFeed}
+              source={{uri: item.ProImage}}
+              />
+            ) : (
+              <Text>No image available</Text>
+            )}
             </View>
-          )}
-        />
-      </SafeAreaView>
-    </LinearGradient>
+          </View>
+        )}
+      />
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
