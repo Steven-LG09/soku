@@ -1,7 +1,7 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,ScrollView,TouchableOpacity,Button,FlatList} from "react-native";
+import{SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity,FlatList} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db } from "../../Firebase/FirebaseConfig";
 
 
@@ -10,7 +10,8 @@ export default function Feed({navigation}){
 
   const fetchFeed1 = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'AutoFeed'));
+      const q = query(collection(db, 'AutoFeed'),where('type', '==', 'Feed1'));
+      const querySnapshot = await getDocs(q);
       const Feed1List = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()

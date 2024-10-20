@@ -1,8 +1,30 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,ScrollView,TouchableOpacity} from "react-native";
+import{SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity,FlatList} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, where,query } from 'firebase/firestore';
+import { db } from "../../Firebase/FirebaseConfig";
 
 export default function Feed2({navigation}){
+  const [Feed2, setFeed2] = useState([]);
+
+  const fetchFeed2 = async () => {
+    try {
+      const q = query(collection(db, 'AutoFeed'),where('type', '==', 'Feed2'));
+      const querySnapshot = await getDocs(q);
+      const Feed2List = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setFeed2(Feed2List);
+    } catch (error) {
+      console.error('Error fetching users: ', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFeed2();
+  }, []);
+
   return(
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
@@ -30,10 +52,13 @@ export default function Feed2({navigation}){
             />
           </TouchableOpacity>
         </View>
-        <ScrollView>
-          <View style={styles.feed}>
+        <FlatList
+          data={Feed2}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.feed}>
               <Text style={styles.textFeed}>
-                  <Text style={{fontWeight: 'bold'}}>Scott Tringali</Text> New students have arrived from the university of Chicago
+                  <Text style={{fontWeight: 'bold'}}>{item.name}</Text> {item.description}
               </Text>
               <View style={styles.interFeed}>
                   <Image
@@ -42,90 +67,18 @@ export default function Feed2({navigation}){
                   <Image
                   style={styles.profileInter}
                   source={require('../MainTabs/images/heart.png')}/>
-                  <Image
-                  style={styles.profileFeed}
-                  source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRij6dtiHizH96qpCOe8WeXXP3yLyQJkPdGVg&s'}}/>
+              {item.ProImage ? (
+                <Image 
+                style={styles.profileFeed}
+                source={{uri: item.ProImage}}
+                />
+              ) : (
+                <Text>No image available</Text>
+              )}
               </View>
-          </View>
-          <View style={styles.feed}>
-              <Text style={styles.textFeed}>
-                  <Text style={{fontWeight: 'bold'}}>Steven López</Text> No me gusta andar en bus, prefiero la patineta 😄</Text>
-              <View style={styles.interFeed}>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/coment.png')}/>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/heart.png')}/>
-                  <Image
-                  style={styles.profileFeed}
-                  source={{uri: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}/>
-              </View>
-          </View>
-          <View style={styles.feed}>
-              <Text style={styles.textFeed}>
-                  <Text style={{fontWeight: 'bold'}}>Luisa Troy</Text> The best meal I ever have in my life was this 😋😋😋</Text>
-              <View style={styles.interFeed}>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/coment.png')}/>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/heart.png')}/>
-                  <Image
-                  style={styles.profileFeed}
-                  source={{uri: 'https://thumbs.dreamstime.com/b/portrait-beautiful-happy-woman-white-teeth-smiling-beauty-attractive-healthy-girl-perfect-smile-blonde-hair-fresh-face-76138238.jpg'}}/>
-              </View>
-          </View>
-          
-          <View style={styles.feed}>
-              <Text style={styles.textFeed}>
-                  <Text style={{fontWeight: 'bold'}}>Scott Tringali</Text> New students have arrived from the university of Chicago
-              </Text>
-              <View style={styles.interFeed}>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/coment.png')}/>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/heart.png')}/>
-                  <Image
-                  style={styles.profileFeed}
-                  source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRij6dtiHizH96qpCOe8WeXXP3yLyQJkPdGVg&s'}}/>
-              </View>
-          </View>
-          <View style={styles.feed}>
-              <Text style={styles.textFeed}>
-                  <Text style={{fontWeight: 'bold'}}>Steven López</Text> No me gusta andar en bus, prefiero la patineta 😄</Text>
-              <View style={styles.interFeed}>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/coment.png')}/>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/heart.png')}/>
-                  <Image
-                  style={styles.profileFeed}
-                  source={{uri: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}/>
-              </View>
-          </View>
-          <View style={styles.feed}>
-              <Text style={styles.textFeed}>
-                  <Text style={{fontWeight: 'bold'}}>Luisa Troy</Text> The best meal I ever have in my life was this 😋😋😋</Text>
-              <View style={styles.interFeed}>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/coment.png')}/>
-                  <Image
-                  style={styles.profileInter}
-                  source={require('../MainTabs/images/heart.png')}/>
-                  <Image
-                  style={styles.profileFeed}
-                  source={{uri: 'https://thumbs.dreamstime.com/b/portrait-beautiful-happy-woman-white-teeth-smiling-beauty-attractive-healthy-girl-perfect-smile-blonde-hair-fresh-face-76138238.jpg'}}/>
-              </View>
-          </View>
-          
-        </ScrollView>
+            </View>
+          )}
+        />
       </SafeAreaView>
     </LinearGradient>
   );

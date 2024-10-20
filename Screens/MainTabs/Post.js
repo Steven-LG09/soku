@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { TextInput, Button, StyleSheet, Alert, LinearGradient, SafeAreaView} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
 export default function Post(){

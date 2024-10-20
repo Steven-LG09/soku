@@ -141,7 +141,7 @@ const styles= StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 10,
   },
   footer: {
     flexDirection: 'row',
