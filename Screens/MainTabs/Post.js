@@ -1,42 +1,28 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, Alert, LinearGradient, SafeAreaView} from 'react-native';
-import firestore from '@react-native-firebase/firestore';
+import { TextInput, Button, StyleSheet, LinearGradient, SafeAreaView,Alert} from 'react-native';
+import { db } from '../../Firebase/FirebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
 
 export default function Post(){
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const postData = async (userUID, postContent) => {
-    try {
-      const docRef = await firestore()
-        .collection('users')
-        .doc(userUID)
-        .collection('posts')
-        .add(postContent);
-
-      console.log('Post added with ID:', docRef.id);
-      Alert.alert('Success', 'Post created successfully!');
-    } catch (error) {
-      Alert.alert('Error', error.message);
-      console.error('Error posting data:', error.message);
-    }
-  };
+  const [mainImage, setMainImage] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
   const handlePost = async () => {
-    setLoading(true);
-
-    if (user) {
-      const postContent = {
-        title,
-        content,
-        timestamp: firestore.FieldValue.serverTimestamp(),
-      };
-      await postData(user.uid, postContent);
+    try {
+      await addDoc(collection(db, 'AutoFeed'), {
+        type: 'Feed1',
+        MainImage: mainImage,
+        ProImage: 'https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small_2x/profile-icon-design-free-vector.jpg',
+        description: description,
+        name: name
+      });
+      Alert.alert('Success', 'Feed 1 Data Added');
+    } catch (error) {
+      console.error('Error adding data: ', error);
+      Alert.alert('Error', 'Failed to add data');
     }
-
-    setLoading(false);
   };
 
   return(
@@ -45,25 +31,26 @@ export default function Post(){
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
-
         <TextInput
-          style={styles.input}
-          placeholder="Post Title"
-          value={title}
-          onChangeText={setTitle}
+          placeholder="Post Image"
+          value={mainImage}
+          onChangeText={setMainImage}
         />
 
         <TextInput
-          style={[styles.input, { height: 100 }]}
-          placeholder="Post Content"
-          value={content}
-          onChangeText={setContent}
+          placeholder="Post name"
+          value={name}
+          onChangeText={setName}
+        />
+        <TextInput
+          placeholder="Post description"
+          value={description}
+          onChangeText={setDescription}
           multiline
         />
         <Button
-        title={loading ? 'Posting...' : 'Post'}
+        title="post"
         onPress={handlePost}
-        disabled={loading}
         />
       </SafeAreaView>
     </LinearGradient>
