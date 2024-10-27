@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, LinearGradient, SafeAreaView,Alert} from 'react-native';
+import { TextInput, StyleSheet, SafeAreaView,Alert, TouchableOpacity,Text} from 'react-native';
 import { db } from '../../Firebase/FirebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Post(){
 
@@ -31,27 +32,33 @@ export default function Post(){
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
+        <Text style={styles.name}>Soku Feed 1</Text>
         <TextInput
+          style={styles.input}
           placeholder="Post Image"
           value={mainImage}
           onChangeText={setMainImage}
         />
 
         <TextInput
+          style={styles.input}
           placeholder="Post name"
           value={name}
           onChangeText={setName}
         />
         <TextInput
+          style={styles.inputD}
           placeholder="Post description"
           value={description}
           onChangeText={setDescription}
           multiline
         />
-        <Button
-        title="post"
+        <TouchableOpacity
+        style={styles.buttonPo}
         onPress={handlePost}
-        />
+        >
+          <Text style={styles.textPo}>Post</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -60,9 +67,73 @@ export default function Post(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:50
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   gradient: {
     flex: 1, 
+  },
+  input: {
+    width: '90%',
+    height: 50,
+    borderColor: '#192f6a',
+    borderWidth: 1,
+    borderRadius: 15,
+    paddingHorizontal: 15,
+    marginVertical: 10,
+    color: 'black',
+    backgroundColor: 'white',
+    shadowColor: 'blue',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
+    elevation: 18,
+    fontFamily: 'serif'
+  },
+  inputD: {
+    width: '90%',
+    height: 100,
+    borderColor: '#192f6a',
+    borderWidth: 1,
+    borderRadius: 15,
+    paddingHorizontal: 15,
+    marginVertical: 10,
+    color: 'black',
+    backgroundColor: 'white',
+    shadowColor: 'blue',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
+    elevation: 18,
+    fontFamily: 'serif'
+  },
+  buttonPo: {
+    marginTop: 20,
+    width: 200,
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: 'blue',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
+    elevation: 18,
+  },
+  textPo: {
+    fontFamily: 'serif',
+    color: '#192f6a',
+    fontSize: 20
+  },
+  name: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 60,
+    fontFamily: 'serif',
+    textShadowColor: '#192f6a',
+    textShadowOffset: {width: 0, height: 3},
+    textShadowRadius: 6,
+    marginBottom: 20
   },
 });
