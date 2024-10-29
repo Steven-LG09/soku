@@ -1,7 +1,7 @@
 import{SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity,FlatList} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, where,query } from 'firebase/firestore';
+import { collection, getDocs, where,query } from '@firebase/firestore';
 import { db } from "../../Firebase/FirebaseConfig";
 
 export default function Feed2({navigation}){

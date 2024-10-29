@@ -4,7 +4,7 @@ import Profile from '../Screens/MainTabs/Profile'
 import Feed from '../Screens/MainTabs/Feed';
 import Suggestions from '../Screens/MainTabs/Suggestions'
 import Groups from '../Screens/MainTabs/Groups'
-import Post from '../Screens/MainTabs/Post'
+import PostTabs from './PostTabs';
 
 
 const Tab = createBottomTabNavigator()
@@ -29,7 +29,7 @@ export default function MainTabs() {
             iconPath = focused
               ? require('../assets/loupe.png')
               : require('../assets/loupe-no.png');
-          } else if (route.name === 'Post') {
+          } else if (route.name === 'PostTabs') {
             iconPath = focused
               ? require('../assets/post.png')
               : require('../assets/post-no.png');
@@ -50,7 +50,7 @@ export default function MainTabs() {
       <Tab.Screen name='Profile' component={Profile} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='Groups' component={Groups} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='Suggestions' component={Suggestions} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-      <Tab.Screen name='Post' component={Post} options={{headerShown: false,tabBarLabel: ()=>null}}/>
+      <Tab.Screen name='PostTabs' component={PostTabs} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='Feed' component={Feed} options={{headerShown: false,tabBarLabel: ()=>null}}/>
     </Tab.Navigator>
   );

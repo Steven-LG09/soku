@@ -4,22 +4,20 @@ import { db } from '../../Firebase/FirebaseConfig';
 import { collection, addDoc } from '@firebase/firestore';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function Post(){
-
-  const [mainImage, setMainImage] = useState('');
+export default function Post2(){
+  
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   const handlePost = async () => {
     try {
       await addDoc(collection(db, 'AutoFeed'), {
-        type: 'Feed1',
-        MainImage: mainImage,
+        type: 'Feed2',
         ProImage: 'https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small_2x/profile-icon-design-free-vector.jpg',
         description: description,
         name: name
       });
-      Alert.alert('Success', 'Feed 1 Data Added');
+      Alert.alert('Success', 'Feed 2 Data Added');
     } catch (error) {
       console.error('Error adding data: ', error);
       Alert.alert('Error', 'Failed to add data');
@@ -32,15 +30,7 @@ export default function Post(){
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
-        <Text style={styles.name}>Soku Feed 1</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Post Image"
-          placeholderTextColor="lightblue"
-          value={mainImage}
-          onChangeText={setMainImage}
-        />
-
+        <Text style={styles.name}>Soku Feed 2</Text>
         <TextInput
           style={styles.input}
           placeholder="Post name"

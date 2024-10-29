@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet,Image } from 'react-native';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from '@firebase/firestore';
 import { db } from '../Firebase/FirebaseConfig';
 
 export default function Other() {
