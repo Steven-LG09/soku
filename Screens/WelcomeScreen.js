@@ -1,37 +1,29 @@
 import React, { useContext, useState } from 'react';
-import { Text, TextInput, StyleSheet, Pressable, Platform, Alert, SafeAreaView} from 'react-native';
-import { login } from '../Utils/Auth';
-import { AuthContext } from '../Context/auth-context';
+import { Text, TextInput, StyleSheet,TouchableOpacity, Pressable, Platform, SafeAreaView} from 'react-native';
+import { signIn } from '../Utils/authService';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MainContext } from '../Context/context';
 
-
-const WelcomeScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const authCtx = useContext(AuthContext); 
+export default function WelcomeScreen  ({ navigation }) {
   const {setInputEmail} =useContext(MainContext);
   const {setInputPass} =useContext(MainContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  async function handleLogin() {
+  const handleSignIn = async () => {
     setInputEmail(email);
     setInputPass(password);
-    if (!email || !password) {
-      Alert.alert('Error', 'Please enter both email and password', [{ text: 'OK' }]);
-      return;
-    }
-
     try {
-      const token = await login(email, password); 
-      authCtx.login(token);
-
-      navigation.navigate('MainTabs'); 
+      await signIn(email, password);
+      console.log('User signed in successfully');
+      navigation.navigate('MainTabs');
     } catch (error) {
-      Alert.alert('Error', 'Login failed. Please try again.');
+      setError(error.message);
     }
-  }
+  };
 
-  return (
+    return (
     <LinearGradient
     colors={['#4A4947', '#FFFFFF', '#FFFFFF']}
     style={styles.gradient} 
@@ -66,16 +58,24 @@ const WelcomeScreen = ({ navigation }) => {
             Platform.OS === 'ios' ? styles.iosButton : styles.androidButton,
             pressed ? styles.buttonPressed : null,
           ]}
-          onPress={handleLogin}
+          onPress={handleSignIn}
         >
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
+        {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
+
+        <TouchableOpacity 
+        style={styles.button1}
+        onPress={()=>navigation.navigate('SignUp')}
+        >
+            <Text style={styles.buttonText1}>Create Account</Text>
+        </TouchableOpacity>
+
+
       </SafeAreaView>
     </LinearGradient>
   );
-};
-
-export default WelcomeScreen;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -135,6 +135,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 18,
   },
+  button1: {
+    backgroundColor: 'trasparent',
+    borderRadius: 25,
+    marginTop: 20,
+  },
   iosButton: {
     borderRadius: 25,
   },
@@ -147,6 +152,12 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'serif'
+  },
+  buttonText1: {
+    color: '#192f6a',
+    fontSize: 12,
     fontWeight: 'bold',
     fontFamily: 'serif'
   },
