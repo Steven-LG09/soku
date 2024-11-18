@@ -1,12 +1,15 @@
-import {SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity} from 'react-native';
+import {SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity,Dimensions} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, where, query } from '@firebase/firestore';
 import { db } from '../../Firebase/FirebaseConfig';
 import { auth } from '../../Firebase/FirebaseConfig';
 
+const { width } = Dimensions.get('window'); 
+
 export default function Profile({ navigation }) {
   const [profile, setProfile] = useState(null);
+  const [Feed1, setFeed1] = useState([]);
 
   const fetchProfile = async () => {
     try {
@@ -20,14 +23,21 @@ export default function Profile({ navigation }) {
       const userId = user.uid;
 
       const q = query(collection(db, 'users'), where('uid', '==', userId));
-
-      console.log(userId);
+      
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
         const userDoc = querySnapshot.docs[0];
         setProfile({ id: userDoc.id, ...userDoc.data() });
       }
+      
+      const q1 = query(collection(db, 'userPosts'),where('uid', '==', userId));
+      const querySnapshot1 = await getDocs(q1);
+      const Feed1List = querySnapshot1.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setFeed1(Feed1List);
     } catch (error) {
       console.error('Error fetching user feed: ', error);
     }
@@ -80,9 +90,20 @@ export default function Profile({ navigation }) {
           <Text style={styles.buttonsP}>Posts 2</Text>
           <Text style={styles.buttonsP}>Saves</Text>
         </View>
-        <View style={styles.postsF}>
-          <Text style={styles.textpos}>No Posts </Text>
-        </View>
+          <View style={styles.wrapper}>
+            {Feed1.map( item => (
+              <View style={styles.postsF}>
+                {item.MainImage ? (
+                  <Image 
+                  style={styles.imageFeed}
+                  source={{uri: item.MainImage}}
+                  />
+                ) : (
+                  <Text>No image available</Text>
+                )}
+              </View>
+            ))}
+          </View>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -107,6 +128,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 2,
+  },
+  imageFeed: {
+    width: 100,
+    height: 100,
+    borderRadius: 15,
+    elevation: 9
   },
   imagePro: {
     width: 100,
@@ -185,19 +212,20 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   postsF: {
-    flex: 1,
-    width: 'auto',
-    height: 'auto',
-    alignItems: 'center',
-    justifyContent: 'center',
     margin: 5,
-    borderWidth: 1,
+    elevation: 9,
+    borderWidth: 2,
     borderColor: '#192f6a',
-    borderRadius: 5,
-    elevation: 2,
+    borderRadius: 15,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
-  textpos: {
-    color: 'white',
-    fontFamily: 'serif',
+  wrapper: {
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+    justifyContent: 'flex-start',
+    width: width - 20,
   },
 });

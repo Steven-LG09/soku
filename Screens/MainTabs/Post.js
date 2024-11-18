@@ -3,21 +3,32 @@ import { TextInput, StyleSheet, SafeAreaView,Alert, TouchableOpacity,Text} from 
 import { db } from '../../Firebase/FirebaseConfig';
 import { collection, addDoc } from '@firebase/firestore';
 import { LinearGradient } from 'expo-linear-gradient';
+import { auth } from '../../Firebase/FirebaseConfig';
 
 export default function Post(){
 
   const [mainImage, setMainImage] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-
+  
   const handlePost = async () => {
     try {
-      await addDoc(collection(db, 'AutoFeed'), {
+      const auth1 = auth;
+      const user = auth1.currentUser;
+      if (!user) {
+        console.error('No user is signed in.');
+        return;
+      }
+
+      const userId = user.uid;
+
+      await addDoc(collection(db, 'userPosts'), {
         type: 'Feed1',
         MainImage: mainImage,
         ProImage: 'https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small_2x/profile-icon-design-free-vector.jpg',
         description: description,
-        name: name
+        name: name,
+        uid: userId
       });
       Alert.alert('Success', 'Feed 1 Data Added');
     } catch (error) {

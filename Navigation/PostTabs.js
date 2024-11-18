@@ -16,12 +16,12 @@ export default function PostTabs() {
 
           if (route.name === 'Post') {
             iconPath = focused
-              ? require('../assets/profile.png')
-              : require('../assets/profile-no.png');
+              ? require('../assets/post1.png')
+              : require('../assets/post1-no.png');
           } else if (route.name === 'Post2') {
             iconPath = focused
-              ? require('../assets/group.png')
-              : require('../assets/group-no.png');
+              ? require('../assets/post1.png')
+              : require('../assets/post1-no.png');
           }
 
           return <Image source={iconPath} style={{ width: size, height: size}} />;
