@@ -9,8 +9,8 @@ import ProfileOptions from "./Screens/SecondaryScreens/ProfileOptions";
 import Feed2 from "./Screens/SecondaryScreens/Feed2";
 import Chats from "./Screens/SecondaryScreens/Chats";
 import MainContextProvider from "./Context/context";
-import SignUp from './Screens/SignUp'
-
+import SignUp from './Screens/SignUp';
+import Profile2 from './Screens/SecondaryScreens/Profile2'
 
 const Stack = createStackNavigator()
 
@@ -28,6 +28,7 @@ export default function App() {
             <Stack.Screen name='Feed2' component={Feed2} options={{headerShown: false}}/>
             <Stack.Screen name='Chats' component={Chats} options={{headerShown: true,headerStyle:{backgroundColor: '#4A4947'}}}/>
             <Stack.Screen name='SignUp' component={SignUp} options={{headerShown: true,headerStyle:{backgroundColor: '#4A4947'}}}/>
+            <Stack.Screen name='Profile2' component={Profile2} options={{headerShown: true,headerStyle:{backgroundColor: '#4A4947'}}}/>
           </Stack.Navigator>
         </NavigationContainer>
       </AuthContextProvider>

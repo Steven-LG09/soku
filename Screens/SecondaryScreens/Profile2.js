@@ -3,25 +3,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, where, query } from '@firebase/firestore';
 import { db } from '../../Firebase/FirebaseConfig';
-import { auth } from '../../Firebase/FirebaseConfig';
 
 const { width } = Dimensions.get('window'); 
 
-export default function Profile({ navigation }) {
+export default function Profile2({ route }) {
+  const {dato=""} =route.params || {};
+
   const [profile, setProfile] = useState(null);
   const [Feed1, setFeed1] = useState([]);
 
   const fetchProfile = async () => {
     try {
-      const auth1 = auth;
-      const user = auth1.currentUser;
-      if (!user) {
-        console.error('No user is signed in.');
-        return;
-      }
-
-      const userId = user.uid;
-      const q = query(collection(db, 'users'), where('uid', '==', userId));
+      const q = query(collection(db, 'users'), where('name', '==', dato));
       
       const querySnapshot = await getDocs(q);
 
@@ -30,7 +23,7 @@ export default function Profile({ navigation }) {
         setProfile({ id: userDoc.id, ...userDoc.data() });
       }
       
-      const q1 = query(collection(db, 'userPosts'),where('uid', '==', userId),where('type', '==', 'Feed1'));
+      const q1 = query(collection(db, 'userPosts'),where('name', '==', dato),where('type', '==', 'Feed1'));
       const querySnapshot1 = await getDocs(q1);
       const Feed1List = querySnapshot1.docs.map(doc => ({
         id: doc.id,
@@ -73,17 +66,6 @@ export default function Profile({ navigation }) {
             {profile.description}
           </Text>
         </View>
-
-        <View style={styles.buttonsSec}>
-          <TouchableOpacity
-            style={styles.buttonOp}
-            onPress={() => navigation.navigate('ProfileOptions')}>
-            <Image
-              style={styles.imageOp}
-              source={require('../../assets/settings.png')}
-            />
-          </TouchableOpacity>
-        </View>
         <View style={styles.secTres}>
           <Text style={styles.buttonsPi}>Posts</Text>
           <Text style={styles.buttonsP}>Posts 2</Text>
@@ -111,22 +93,9 @@ export default function Profile({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
   },
   gradient: {
     flex: 1,
-  },
-  imageOp: {
-    width: 30,
-    height: 30,
-  },
-  buttonOp: {
-    width: 30,
-    height: 30,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 2,
   },
   imageFeed: {
     width: 120,
@@ -143,11 +112,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 9,
-  },
-  buttonsSec: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    margin: 2,
   },
   secOne: {
     backgroundColor: 'black',

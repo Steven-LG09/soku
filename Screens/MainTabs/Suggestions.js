@@ -1,109 +1,175 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,TextInput,Dimensions,ScrollView} from "react-native";
+import {SafeAreaView,StyleSheet,Text,View,TouchableOpacity,Image,TextInput,Dimensions,ScrollView,FlatList} from 'react-native';
+import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { db } from '../../Firebase/FirebaseConfig';
+import { collection, query, where, getDocs } from '@firebase/firestore';
 
 const screenWidth = Dimensions.get('window').width;
 
-export default function Suggestions(){
-  return(
+export default function Suggestions({navigation}) {
+  const [queryText, setQueryText] = useState('');
+  const [results, setResults] = useState([]);
+
+  const searchUsers = async (text) => {
+    setQueryText(text);
+
+    if (text.trim() === '') {
+      setResults([]);
+      return;
+    }
+
+    try {
+      const usersQuery = query(
+        collection(db, 'users'),
+        where('name', '>=', text),
+        where('name', '<=', text + '\uf8ff')
+      );
+
+      const snapshot = await getDocs(usersQuery);
+
+      const users = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setResults(users);
+    } catch (error) {
+      console.error('Error searching users:', error);
+    }
+  };
+
+  return (
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
-      style={styles.gradient} 
-      >
+      style={styles.gradient}>
       <SafeAreaView style={styles.container}>
         <TextInput
-        style={styles.buscar}
-        placeholder="🔍 Buscar"/>
+          style={styles.buscar}
+          value={queryText}
+          onChangeText={searchUsers}
+          placeholder="🔍 Buscar"
+        />
+
+        <FlatList
+          style={styles.flatUser}
+          data={results}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity 
+            style={styles.buttons} 
+            onPress={()=>navigation.navigate('Profile2',{dato: item.name})}
+            >
+              <Text style={styles.item}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+        />
         <ScrollView>
           <View style={styles.app}>
-            
             <View style={styles.rowB}>
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/200'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/200' }}
               />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/450'}}
-              />
-              <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/210'}}
-              />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
-              <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/410'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/450' }}
               />
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/220'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/210' }}
               />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/420'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/410' }}
+              />
+              <Image
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/220' }}
+              />
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
+              <Image
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/420' }}
               />
             </View>
 
             <View style={styles.rowB}>
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/300'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/300' }}
               />
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/250'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/250' }}
               />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/310'}}
-              />
-              <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/260'}}
-              />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
-              <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/320'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/310' }}
               />
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/270'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/260' }}
               />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
+              <Image
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/320' }}
+              />
+              <Image
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/270' }}
+              />
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
             </View>
 
             <View style={styles.rowB}>
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/100'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/100' }}
               />
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/350'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/350' }}
               />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/110'}}
-              />
-              <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/360'}}
-              />
-              <Text style={styles.textB}>Sed ut perspiciatis unde omnis iste natus error laudantium.</Text>
-              <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/120'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/110' }}
               />
               <Image
-              style={styles.imageB}
-              source={{uri: 'https://picsum.photos/370'}}
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/360' }}
+              />
+              <Text style={styles.textB}>
+                Sed ut perspiciatis unde omnis iste natus error laudantium.
+              </Text>
+              <Image
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/120' }}
+              />
+              <Image
+                style={styles.imageB}
+                source={{ uri: 'https://picsum.photos/370' }}
               />
             </View>
           </View>
@@ -126,9 +192,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginLeft: 10,
     marginRight: 10,
-    borderRadius: 10,
-    borderWidth: 3,
-    borderColor: '#192f6a',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -159,5 +224,24 @@ const styles = StyleSheet.create({
   },
   rowB: {
     width: screenWidth * 0.313
-  }
+  },
+  item: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    color: 'white',
+    fontFamily: 'serif',
+  },
+  flatUser: {
+    backgroundColor: 'black',
+    marginLeft: 10,
+    marginRight: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  buttons: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 'auto',
+  },
 });
