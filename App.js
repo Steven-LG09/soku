@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext,useState,useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator,TransitionPresets } from '@react-navigation/stack';
 import { AuthContext } from './Context/auth-context';
 import AuthContextProvider from './Context/auth-context';
 import WelcomeScreen from './Screens/WelcomeScreen';
@@ -11,17 +11,31 @@ import Chats from "./Screens/SecondaryScreens/Chats";
 import MainContextProvider from "./Context/context";
 import SignUp from './Screens/SignUp';
 import Profile2 from './Screens/SecondaryScreens/Profile2'
+import SplashScreen from "./Screens/SplashScreen";
 
 const Stack = createStackNavigator()
 
 export default function App() {
   const authCtx = useContext(AuthContext);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <SplashScreen />;
+
   return (
     <MainContextProvider>
       <AuthContextProvider>
         <NavigationContainer >
-          <Stack.Navigator initialRouteName={authCtx.isLoggedIn ? "MainTabs" : "Welcome"}>
+          <Stack.Navigator 
+            screenOptions={{
+              ...TransitionPresets.SlideFromRightIOS,
+            }}
+          initialRouteName={authCtx.isLoggedIn ? "MainTabs" : "Welcome"}>
             <Stack.Screen name='Welcome' component={WelcomeScreen} options={{headerShown: false}}/>
             <Stack.Screen name='MainTabs' component={MainTabs} options={{headerShown: false}}/>
             <Stack.Screen name='ProfileOptions' component={ProfileOptions} options={{headerShown: true,headerStyle:{backgroundColor: '#4A4947'}}}/>

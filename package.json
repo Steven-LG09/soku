@@ -9,9 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@dotlottie/react-player": "^1.6.19",
     "@firebase/app": "^0.10.15",
     "@firebase/auth": "^1.8.0",
     "@firebase/firestore": "^4.7.4",
+    "@lottiefiles/react-lottie-player": "^3.5.4",
     "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
@@ -19,6 +21,7 @@
     "expo": "^51.0.38",
     "expo-linear-gradient": "^13.0.2",
     "expo-status-bar": "~1.12.1",
+    "lottie-react-native": "^7.1.0",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-image-picker": "^7.1.2"
