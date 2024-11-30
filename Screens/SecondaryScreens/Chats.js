@@ -1,7 +1,11 @@
-import { SafeAreaView,Text,Image,View, StyleSheet, TextInput,ScrollView, TouchableOpacity} from "react-native";
+import { SafeAreaView,Text,Image,View, StyleSheet, TextInput,ScrollView, TouchableOpacity,Alert} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Chats(){
+
+  function HandleTouch(){
+    Alert.alert('Not Available', 'Right now we are working on that');
+  }
     return(
       <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
@@ -12,6 +16,8 @@ export default function Chats(){
           style={styles.buscar}
           placeholder="🔍 Buscar"/>
           <ScrollView>
+          <TouchableOpacity
+          onPress={HandleTouch}>
             <View style={styles.boxChat}>
                 <View>
                   <Text style={styles.texto1}>Steven</Text>
@@ -21,7 +27,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/230'}}/>
             </View>
+            </TouchableOpacity>
 
+          <TouchableOpacity
+          onPress={HandleTouch}>
             <View style={styles.boxChat}>
                 <View>
                   <Text style={styles.texto1}>+ 01 12784567</Text>
@@ -31,7 +40,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/240'}}/>
             </View>
+            </TouchableOpacity>
 
+          <TouchableOpacity
+          onPress={HandleTouch}>
             <View style={styles.boxChat}>
                 <View>
                   <Text style={styles.texto1}>Sandra</Text>
@@ -41,7 +53,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/200'}}/>
             </View>
+            </TouchableOpacity>
 
+          <TouchableOpacity
+          onPress={HandleTouch}>
             <View style={styles.boxChat}>
                 <View>
                   <Text style={styles.texto1}>+ 57 3125875634</Text>
@@ -51,7 +66,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/210'}}/>
             </View>
+            </TouchableOpacity>
 
+          <TouchableOpacity
+          onPress={HandleTouch}>
             <View style={styles.boxChat}>
                 <View>
                   <Text style={styles.texto1}>Juan Vasquez</Text>
@@ -61,7 +79,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/220'}}/>
             </View>
+            </TouchableOpacity>
 
+          <TouchableOpacity
+          onPress={HandleTouch}>
                         <View style={styles.boxChat}>
                 <View>
                   <Text style={styles.texto1}>Steven</Text>
@@ -71,7 +92,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/230'}}/>
             </View>
+            </TouchableOpacity>
 
+          <TouchableOpacity
+          onPress={HandleTouch}>
             <View style={styles.boxChat}>
                 <View>
                   <Text style={styles.texto1}>+ 01 12784567</Text>
@@ -81,6 +105,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/280'}}/>
             </View>
+            </TouchableOpacity>
+
+                      <TouchableOpacity
+          onPress={HandleTouch}>
 
             <View style={styles.boxChat}>
                 <View>
@@ -91,6 +119,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/270'}}/>
             </View>
+            </TouchableOpacity>
+
+                      <TouchableOpacity
+          onPress={HandleTouch}>
 
             <View style={styles.boxChat}>
                 <View>
@@ -101,6 +133,10 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/250'}}/>
             </View>
+            </TouchableOpacity>
+
+                      <TouchableOpacity
+          onPress={HandleTouch}>
 
             <View style={styles.boxChat}>
                 <View>
@@ -111,10 +147,12 @@ export default function Chats(){
                     style={styles.profileChat}
                     source={{uri: 'https://picsum.photos/260'}}/>
             </View>
+            </TouchableOpacity>
           </ScrollView>
           <View style={styles.footer}>
             <TouchableOpacity
             style={styles.buttons}
+            onPress={HandleTouch}
             >
               <Image
               style={styles.imageC}
@@ -123,6 +161,7 @@ export default function Chats(){
             </TouchableOpacity>
             <TouchableOpacity
             style={styles.buttons}
+            onPress={HandleTouch}
             >
               <Image
               style={styles.imageC}

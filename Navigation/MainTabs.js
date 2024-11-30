@@ -1,18 +1,35 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator,TransitionPresets } from '@react-navigation/stack';
 import { Image } from 'react-native';
 import Profile from '../Screens/MainTabs/Profile'
 import Feed from '../Screens/MainTabs/Feed';
 import Suggestions from '../Screens/MainTabs/Suggestions'
 import Groups from '../Screens/MainTabs/Groups'
 import PostTabs from './PostTabs';
+import Feed2 from "../Screens/SecondaryScreens/Feed2";
+import Chats from "../Screens/SecondaryScreens/Chats";
 
 
 const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator();
+
+function FeedStack(){
+  return(
+   <Stack.Navigator
+               screenOptions={{
+              ...TransitionPresets.SlideFromRightIOS,
+            }}>
+    <Stack.Screen name='Feed' component={Feed} options={{headerShown: false}}/>
+    <Stack.Screen name='Feed2' component={Feed2} options={{headerShown: false}}/>
+    <Stack.Screen name='Chats' component={Chats} options={{headerShown: true,headerStyle:{backgroundColor: '#4A4947'}}}/>
+   </Stack.Navigator> 
+  )
+}
 
 export default function MainTabs() {
   return (
     <Tab.Navigator 
-    initialRouteName='Feed'
+    initialRouteName='FeedStack'
     screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, size }) => {
           let iconPath;
@@ -33,7 +50,7 @@ export default function MainTabs() {
             iconPath = focused
               ? require('../assets/post.png')
               : require('../assets/post-no.png');
-          } else if (route.name === 'Feed') {
+          } else if (route.name === 'FeedStack') {
             iconPath = focused
               ? require('../assets/home.png')
               : require('../assets/home-no.png');
@@ -51,7 +68,7 @@ export default function MainTabs() {
       <Tab.Screen name='Groups' component={Groups} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='Suggestions' component={Suggestions} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='PostTabs' component={PostTabs} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-      <Tab.Screen name='Feed' component={Feed} options={{headerShown: false,tabBarLabel: ()=>null}}/>
+      <Tab.Screen name='FeedStack' component={FeedStack} options={{headerShown: false,tabBarLabel: ()=>null}}/>
     </Tab.Navigator>
   );
 }

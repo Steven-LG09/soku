@@ -1,4 +1,4 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity,FlatList} from "react-native";
+import{SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity,FlatList,TextInput} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, where,query } from '@firebase/firestore';
@@ -6,6 +6,11 @@ import { db } from "../../Firebase/FirebaseConfig";
 
 export default function Feed2({navigation}){
   const [Feed2, setFeed2] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible2, setIsVisible2] = useState(false);
+  const [isVisible3, setIsVisible3] = useState(true);
+  const [isVisible4, setIsVisible4] = useState(true);
+  const [isVisible5, setIsVisible5] = useState(false);
 
   const fetchFeed2 = async () => {
     try {
@@ -25,6 +30,15 @@ export default function Feed2({navigation}){
     fetchFeed2();
   }, []);
 
+  function Visibility(){
+    setIsVisible3(!isVisible3)
+    setIsVisible2(!isVisible2)
+  }
+  function Visibility2(){
+    setIsVisible4(!isVisible4)
+    setIsVisible5(!isVisible5)
+  }
+
   return(
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
@@ -32,6 +46,7 @@ export default function Feed2({navigation}){
       >
       <SafeAreaView style={styles.container}>
         <View style={styles.appHeader}>
+            <Text style={styles.name}>Soku</Text>
           <TouchableOpacity
           style={styles.buttonsHe}
           onPress={()=>navigation.goBack()}
@@ -41,7 +56,6 @@ export default function Feed2({navigation}){
             source={require('../MainTabs/images/screen.png')}
             />
           </TouchableOpacity>
-            <Text style={styles.name}>Soku</Text>
           <TouchableOpacity
           style={styles.buttonsHe}
           onPress={()=>navigation.navigate('Chats')}
@@ -61,20 +75,57 @@ export default function Feed2({navigation}){
                   <Text style={{fontWeight: 'bold'}}>{item.name}</Text> {item.description}
               </Text>
               <View style={styles.interFeed}>
+                {isVisible && <TextInput
+                  style={styles.tInput}
+                  placeholder="Comentar..."
+                  />}
+                <TouchableOpacity
+                style={styles.buttonsHe}
+                onPress={() => setIsVisible(!isVisible)}
+                >
                   <Image
                   style={styles.profileInter}
                   source={require('../MainTabs/images/coment.png')}/>
+                </TouchableOpacity>
+                
+                {isVisible2 &&<TouchableOpacity
+                style={styles.buttonsHe}
+                onPress={Visibility}
+                >
                   <Image
                   style={styles.profileInter}
-                  source={require('../MainTabs/images/heart.png')}/>
-              {item.ProImage ? (
-                <Image 
-                style={styles.profileFeed}
-                source={{uri: item.ProImage}}
-                />
-              ) : (
-                <Text>No image available</Text>
-              )}
+                  source={require('../MainTabs/images/heartT.png')}/>
+                </TouchableOpacity>}
+                {isVisible3 &&<TouchableOpacity
+                  style={styles.buttonsHe}
+                  onPress={Visibility}
+                  >
+                    <Image
+                    style={styles.profileInter}
+                    source={require('../MainTabs/images/heart.png')}/>
+                  </TouchableOpacity>}
+
+                {isVisible5 &&<TouchableOpacity
+                  style={styles.buttonsHe}
+                  onPress={Visibility2}
+                  >
+                    <Image
+                    style={styles.profileInter}
+                    source={require('../MainTabs/images/userBlock.png')}/>
+                  </TouchableOpacity>}
+                {isVisible4 &&<TouchableOpacity
+                  style={styles.buttonsHe}
+                  onPress={Visibility2}
+                  >
+                {item.ProImage ? (
+                  <Image 
+                  style={styles.profileFeed}
+                  source={{uri: item.ProImage}}
+                  />
+                ) : (
+                  <Text>No image available</Text>
+                )}
+                </TouchableOpacity>}
               </View>
             </View>
           )}
@@ -102,7 +153,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 9,
-    height: 70,
+    height: 90,
     borderWidth: 1,
     borderColor: '#192f6a'
   },
@@ -115,9 +166,11 @@ const styles = StyleSheet.create({
     margin: 2,
   },
   name: {
+    marginLeft: 20,
+    marginRight: '25%',
     textAlign: 'center',
     color: 'white',
-    fontSize: 45,
+    fontSize: 55,
     fontFamily: 'serif',
     textShadowColor: '#192f6a',
     textShadowOffset: {width: 0, height: 3},
@@ -171,5 +224,17 @@ const styles = StyleSheet.create({
     color: 'white',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+  },
+  tInput: {
+    textAlign: 'center',
+    width: '35%',
+    backgroundColor: 'white',
+    marginRight: 20,
+    borderRadius: 10,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
   }
 });
