@@ -1,4 +1,4 @@
-import {SafeAreaView,StyleSheet,Text,View,Image,TouchableOpacity,Dimensions} from 'react-native';
+import {SafeAreaView,StyleSheet,Text,View,Image,ScrollView,Modal,TouchableOpacity,Alert,Dimensions} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, where, query } from '@firebase/firestore';
@@ -11,6 +11,7 @@ export default function Profile2({ route }) {
 
   const [profile, setProfile] = useState(null);
   const [Feed1, setFeed1] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const fetchProfile = async () => {
     try {
@@ -42,20 +43,47 @@ export default function Profile2({ route }) {
     return <Text>Loading...</Text>;
   }
 
+  function Alerta(){
+    Alert.alert('Ups','Not available Right now')
+  }
+
   return (
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
       style={styles.gradient}>
       <SafeAreaView style={styles.container}>
         <View style={styles.secOne}>
+                <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+          <Image
+          style={styles.imagePM}
+          source={{uri: profile.photo}}/>
+          <Text style={styles.message}>{profile.name}</Text>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setModalVisible(false)}
+          >
+            <Text style={styles.closeButtonText}>Close</Text>
+          </TouchableOpacity></View>
+          </View>
+        </Modal>
           <View style={styles.secIma}>
+                    <TouchableOpacity
+          onPress={()=>setModalVisible(true)}>
             {profile.photo ? (
               <Image style={styles.imagePro} source={{ uri: profile.photo }} />
             ) : (
               <Text>No image available</Text>
             )}
+            </TouchableOpacity>
             <View>
-              <Text style={styles.textSecDos}>0 Posts</Text>
+              <Text style={styles.textSecDos}>{Feed1.length} Posts</Text>
               <Text style={styles.textSecDos}>0 Seguidores</Text>
               <Text style={styles.textSecDos}>0 Seguidos</Text>
             </View>
@@ -68,9 +96,12 @@ export default function Profile2({ route }) {
         </View>
         <View style={styles.secTres}>
           <Text style={styles.buttonsPi}>Posts</Text>
-          <Text style={styles.buttonsP}>Posts 2</Text>
-          <Text style={styles.buttonsP}>Saves</Text>
+          <Text style={styles.buttonsP}
+          onPress={Alerta}>Posts 2</Text>
+          <Text style={styles.buttonsP}
+          onPress={Alerta}>Saves</Text>
         </View>
+        <ScrollView>
           <View style={styles.wrapper}>
             {Feed1.map( item => (
               <View style={styles.postsF}>
@@ -85,6 +116,7 @@ export default function Profile2({ route }) {
               </View>
             ))}
           </View>
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -93,13 +125,14 @@ export default function Profile2({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
   },
   gradient: {
     flex: 1,
   },
   imageFeed: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderRadius: 15,
     elevation: 9
   },
@@ -164,10 +197,20 @@ const styles = StyleSheet.create({
     borderColor: '#192f6a',
   },
   buttonsP: {
+    flex: 1,
     fontSize: 15,
     color: 'white',
+    paddingTop: 10,
+    textAlign: 'center',
+    width: 70,
+    height: 40,
   },
   buttonsPi: {
+    flex: 1,
+    paddingTop: 10,
+    textAlign: 'center',
+    width: 70,
+    height: 40,
     fontSize: 15,
     backgroundColor: '#192f6a',
     borderRadius: 5,
@@ -188,5 +231,45 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap', 
     justifyContent: 'center',
     width: width - 20,
+    marginLeft: 10,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: 300,
+    backgroundColor: 'black',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  closeButton: {
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  message: {
+    fontFamily: 'serif',
+    fontStyle: 'Bold',
+    fontSize: 20,
+    color: 'white'
+  },
+  imagePM: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
   },
 });

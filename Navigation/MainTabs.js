@@ -8,6 +8,8 @@ import Groups from '../Screens/MainTabs/Groups'
 import PostTabs from './PostTabs';
 import Feed2 from "../Screens/SecondaryScreens/Feed2";
 import Chats from "../Screens/SecondaryScreens/Chats";
+import Profile2 from '../Screens/SecondaryScreens/Profile2'
+import ProfileOptions from "../Screens/SecondaryScreens/ProfileOptions";
 
 
 const Tab = createBottomTabNavigator()
@@ -25,6 +27,29 @@ function FeedStack(){
    </Stack.Navigator> 
   )
 }
+function SugStack(){
+  return(
+   <Stack.Navigator
+               screenOptions={{
+              ...TransitionPresets.SlideFromRightIOS,
+            }}>
+    <Stack.Screen name='Suggestions' component={Suggestions} options={{headerShown: false}}/>
+    <Stack.Screen name='Profile2' component={Profile2} options={{headerShown: true,headerStyle:{backgroundColor: '#4A4947'}}}/>
+   </Stack.Navigator> 
+  )
+}
+
+function ProStack(){
+  return(
+   <Stack.Navigator
+               screenOptions={{
+              ...TransitionPresets.SlideFromRightIOS,
+            }}>
+    <Stack.Screen name='Profile' component={Profile} options={{headerShown: false}}/>
+    <Stack.Screen name='ProfileOptions' component={ProfileOptions} options={{headerShown: true,headerStyle:{backgroundColor: '#4A4947'}}}/>
+   </Stack.Navigator> 
+  )
+}
 
 export default function MainTabs() {
   return (
@@ -34,7 +59,7 @@ export default function MainTabs() {
         tabBarIcon: ({ focused, size }) => {
           let iconPath;
 
-          if (route.name === 'Profile') {
+          if (route.name === 'ProStack') {
             iconPath = focused
               ? require('../assets/profile.png')
               : require('../assets/profile-no.png');
@@ -42,7 +67,7 @@ export default function MainTabs() {
             iconPath = focused
               ? require('../assets/group.png')
               : require('../assets/group-no.png');
-          } else if (route.name === 'Suggestions') {
+          } else if (route.name === 'SugStack') {
             iconPath = focused
               ? require('../assets/loupe.png')
               : require('../assets/loupe-no.png');
@@ -64,9 +89,9 @@ export default function MainTabs() {
             backgroundColor: '#4A4947'
         }
       })}>
-      <Tab.Screen name='Profile' component={Profile} options={{headerShown: false,tabBarLabel: ()=>null}}/>
+      <Tab.Screen name='ProStack' component={ProStack} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='Groups' component={Groups} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-      <Tab.Screen name='Suggestions' component={Suggestions} options={{headerShown: false,tabBarLabel: ()=>null}}/>
+      <Tab.Screen name='SugStack' component={SugStack} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='PostTabs' component={PostTabs} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='FeedStack' component={FeedStack} options={{headerShown: false,tabBarLabel: ()=>null}}/>
     </Tab.Navigator>

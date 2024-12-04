@@ -1,9 +1,53 @@
-import{SafeAreaView,StyleSheet,Text,View,Image,TextInput,TouchableOpacity,Dimensions,ScrollView} from "react-native";
+import{SafeAreaView,StyleSheet,Text,View,Image,TextInput,TouchableOpacity,Dimensions,ScrollView,Alert} from "react-native";
+import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const screenWidth = Dimensions.get('window').width;
 
 export default function Groups(){
+  const [isVisible,setIsVisible] = useState(true);
+    const [isVisible2,setIsVisible2] = useState(true);
+      const [isVisible3,setIsVisible3] = useState(true);
+        const [isVisible4,setIsVisible4] = useState(true);
+          const [isVisible5,setIsVisible5] = useState(true);
+            const [isVisible6,setIsVisible6] = useState(true);
+  const [count,setCount] = useState(0);
+    const [count2,setCount2] = useState(0);
+      const [count3,setCount3] = useState(0);
+        const [count4,setCount4] = useState(0);
+          const [count5,setCount5] = useState(0);
+                    const [count6,setCount6] = useState(0);
+
+  function Visibility(){
+    setIsVisible(!isVisible)
+    setCount(count+1)
+    Alert.alert('Congratulations','You are part of a new group')
+  }
+    function Visibility2(){
+    setIsVisible2(!isVisible2)
+    setCount2(count2+1)
+    Alert.alert('Congratulations','You are part of a new group')
+  }
+    function Visibility3(){
+    setIsVisible3(!isVisible3)
+    setCount3(count3+1)
+    Alert.alert('Congratulations','You are part of a new group')
+  }
+    function Visibility4(){
+    setIsVisible4(!isVisible4)
+    setCount4(count4+1)
+    Alert.alert('Congratulations','You are part of a new group')
+  }
+    function Visibility5(){
+    setIsVisible5(!isVisible5)
+    setCount5(count5+1)
+    Alert.alert('Congratulations','You are part of a new group')
+  }
+    function Visibility6(){
+    setIsVisible6(!isVisible6)
+    setCount6(count6+1)
+    Alert.alert('Congratulations','You are part of a new group')
+  }
   return(
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
@@ -22,10 +66,11 @@ export default function Groups(){
             <View style={styles.descG}>
               <Text style={styles.titleG}>Grupo 1</Text>
               <Text style={styles.textG}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</Text>
-              <Text style={styles.textG}>0 Miembros</Text>
-              <TouchableOpacity style={styles.buttonG}>
+              <Text style={styles.textG}>{count} Miembros</Text>
+              {isVisible &&<TouchableOpacity style={styles.buttonG}
+              onPress={Visibility}>
                 <Text style={styles.buttonTG}>JOIN</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
             </View>
           </View>
           <View style={styles.secG}>
@@ -36,10 +81,11 @@ export default function Groups(){
             <View style={styles.descG}>
               <Text style={styles.titleG}>Grupo 2</Text>
               <Text style={styles.textG}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</Text>
-              <Text style={styles.textG}>0 Miembros</Text>
-              <TouchableOpacity style={styles.buttonG}>
+              <Text style={styles.textG}>{count2} Miembros</Text>
+              {isVisible2 &&<TouchableOpacity style={styles.buttonG}
+              onPress={Visibility2}>
                 <Text style={styles.buttonTG}>JOIN</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
             </View>
           </View>
           <View style={styles.secG}>
@@ -50,10 +96,11 @@ export default function Groups(){
             <View style={styles.descG}>
               <Text style={styles.titleG}>Grupo 3</Text>
               <Text style={styles.textG}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</Text>
-              <Text style={styles.textG}>0 Miembros</Text>
-              <TouchableOpacity style={styles.buttonG}>
+              <Text style={styles.textG}>{count3} Miembros</Text>
+              {isVisible3 &&<TouchableOpacity style={styles.buttonG}
+              onPress={Visibility3}>
                 <Text style={styles.buttonTG}>JOIN</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
             </View>
           </View>
           <View style={styles.secG}>
@@ -64,10 +111,11 @@ export default function Groups(){
             <View style={styles.descG}>
               <Text style={styles.titleG}>Grupo 4</Text>
               <Text style={styles.textG}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</Text>
-              <Text style={styles.textG}>0 Miembros</Text>
-              <TouchableOpacity style={styles.buttonG}>
+              <Text style={styles.textG}>{count4} Miembros</Text>
+              {isVisible4 &&<TouchableOpacity style={styles.buttonG}
+              onPress={Visibility4}>
                 <Text style={styles.buttonTG}>JOIN</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
             </View>
           </View>
           <View style={styles.secG}>
@@ -78,10 +126,11 @@ export default function Groups(){
             <View style={styles.descG}>
               <Text style={styles.titleG}>Grupo 5</Text>
               <Text style={styles.textG}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</Text>
-              <Text style={styles.textG}>0 Miembros</Text>
-              <TouchableOpacity style={styles.buttonG}>
+              <Text style={styles.textG}>{count5} Miembros</Text>
+              {isVisible5 &&<TouchableOpacity style={styles.buttonG}
+              onPress={Visibility5}>
                 <Text style={styles.buttonTG}>JOIN</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
             </View>
           </View>
           <View style={styles.secG}>
@@ -92,10 +141,11 @@ export default function Groups(){
             <View style={styles.descG}>
               <Text style={styles.titleG}>Grupo 6</Text>
               <Text style={styles.textG}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</Text>
-              <Text style={styles.textG}>0 Miembros</Text>
-              <TouchableOpacity style={styles.buttonG}>
+              <Text style={styles.textG}>{count6} Miembros</Text>
+              {isVisible6 &&<TouchableOpacity style={styles.buttonG}
+              onPress={Visibility6}>
                 <Text style={styles.buttonTG}>JOIN</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
             </View>
           </View>
         </ScrollView>
