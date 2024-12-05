@@ -10,6 +10,10 @@ export default function Post(){
   const [mainImage, setMainImage] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [name2, setName2] = useState('');
+  const [description2, setDescription2] = useState('');
+  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible2, setIsVisible2] = useState(false);
   
   const handlePost = async () => {
     try {
@@ -37,41 +41,101 @@ export default function Post(){
     }
   };
 
+  const handlePost2 = async () => {
+    try {
+      const auth1 = auth;
+      const user = auth1.currentUser;
+      if (!user) {
+        console.error('No user is signed in.');
+        return;
+      }
+
+      const userId = user.uid;
+
+      await addDoc(collection(db, 'userPosts'), {
+        type: 'Feed2',
+        ProImage: 'https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small_2x/profile-icon-design-free-vector.jpg',
+        description: description2,
+        name: name2,
+        uid: userId
+      });
+      Alert.alert('Success', 'Feed 2 Data Added');
+    } catch (error) {
+      console.error('Error adding data: ', error);
+      Alert.alert('Error', 'Failed to add data');
+    }
+  };
+
+  function Visibility(){
+    setIsVisible(!isVisible)
+    setIsVisible2(!isVisible2)
+  }
+
   return(
     <LinearGradient
       colors={['#4A4947', '#000000', '#000000']}
       style={styles.gradient} 
       >
       <SafeAreaView style={styles.container}>
-        <Text style={styles.name}>Soku Feed 1</Text>
-        <TextInput
+        {isVisible &&<Text style={styles.name}>Soku Feed 1</Text>}
+        {isVisible &&<TextInput
           style={styles.input}
           placeholder="Post Image"
           placeholderTextColor="lightblue"
           value={mainImage}
           onChangeText={setMainImage}
-        />
+        />}
 
-        <TextInput
+        {isVisible &&<TextInput
           style={styles.input}
           placeholder="Post name"
           placeholderTextColor="lightblue"
           value={name}
           onChangeText={setName}
-        />
-        <TextInput
+        />}
+        {isVisible &&<TextInput
           style={styles.inputD}
           placeholder="Post description"
           placeholderTextColor="lightblue"
           value={description}
           onChangeText={setDescription}
           multiline
-        />
-        <TouchableOpacity
+        />}
+        {isVisible &&<TouchableOpacity
         style={styles.buttonPo}
         onPress={handlePost}
         >
           <Text style={styles.textPo}>Post</Text>
+        </TouchableOpacity>}
+
+        {isVisible2 &&<Text style={styles.name}>Soku Feed 2</Text>}
+        {isVisible2 &&<TextInput
+          style={styles.input}
+          placeholder="Post name"
+          placeholderTextColor="lightblue"
+          value={name2}
+          onChangeText={setName2}
+        />}
+        {isVisible2 &&<TextInput
+          style={styles.inputD}
+          placeholder="Post description"
+          placeholderTextColor="lightblue"
+          value={description2}
+          onChangeText={setDescription2}
+          multiline
+        />}
+        {isVisible2 &&<TouchableOpacity
+        style={styles.buttonPo}
+        onPress={handlePost2}
+        >
+          <Text style={styles.textPo}>Post</Text>
+        </TouchableOpacity>}
+
+        <TouchableOpacity
+        style={styles.buttonPo}
+        onPress={Visibility}
+        >
+          <Text style={styles.textPo}>Change Feed</Text>
         </TouchableOpacity>
       </SafeAreaView>
     </LinearGradient>

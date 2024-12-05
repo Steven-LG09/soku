@@ -5,11 +5,11 @@ import Profile from '../Screens/MainTabs/Profile'
 import Feed from '../Screens/MainTabs/Feed';
 import Suggestions from '../Screens/MainTabs/Suggestions'
 import Groups from '../Screens/MainTabs/Groups'
-import PostTabs from './PostTabs';
 import Feed2 from "../Screens/SecondaryScreens/Feed2";
 import Chats from "../Screens/SecondaryScreens/Chats";
 import Profile2 from '../Screens/SecondaryScreens/Profile2'
 import ProfileOptions from "../Screens/SecondaryScreens/ProfileOptions";
+import Post from '../Screens/MainTabs/Post'
 
 
 const Tab = createBottomTabNavigator()
@@ -71,7 +71,7 @@ export default function MainTabs() {
             iconPath = focused
               ? require('../assets/loupe.png')
               : require('../assets/loupe-no.png');
-          } else if (route.name === 'PostTabs') {
+          } else if (route.name === 'Post') {
             iconPath = focused
               ? require('../assets/post.png')
               : require('../assets/post-no.png');
@@ -92,7 +92,7 @@ export default function MainTabs() {
       <Tab.Screen name='ProStack' component={ProStack} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='Groups' component={Groups} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='SugStack' component={SugStack} options={{headerShown: false,tabBarLabel: ()=>null}}/>
-      <Tab.Screen name='PostTabs' component={PostTabs} options={{headerShown: false,tabBarLabel: ()=>null}}/>
+      <Tab.Screen name='Post' component={Post} options={{headerShown: false,tabBarLabel: ()=>null}}/>
       <Tab.Screen name='FeedStack' component={FeedStack} options={{headerShown: false,tabBarLabel: ()=>null}}/>
     </Tab.Navigator>
   );
