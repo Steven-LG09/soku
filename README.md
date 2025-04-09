@@ -18,4 +18,4 @@ This is a mobile application built with **React Native** that functions as a soc
 - React Navigation
 - Context API 
 
-##“Stay hungry, stay foolish.” – Steve Jobs
+## “Stay hungry, stay foolish.” – Steve Jobs
